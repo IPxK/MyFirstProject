@@ -22,8 +22,13 @@
         "children": [],
         "isRemovable": true,
         "filePath": "MyFirstProject/lambda.js",
-        "code": "exports.handler = function(event, context, callback) {\n    \n    callback(null, {\"message\": \"Successfully executed\"});\n}",
-        "triggers": [],
+        "code": "let AWS = require('aws-sdk');\n\nconst sns = new AWS.SNS();\nexports.handler = function (event, context, callback) {\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}\n\n\nexports.handler = function (event, context, callback) {\n    sns.publish({\n        Message: message,\n        MessageAttributes: {\n            'AWS.SNS.SMS.SMSType': {\n                DataType: 'String',\n                StringValue: 'Promotional'\n            },\n            'AWS.SNS.SMS.SenderID': {\n                DataType: 'String',\n                StringValue: '@sender'\n            },\n        },\n        PhoneNumber: receiver\n    }).promise()\n        .then(data => {\n            // your code goes here\n        })\n        .catch(err => {\n            // error handling goes here\n        });\n\n    let receiver = event['receiver'];\n    let sender = event['sender'];\n    let message = event['message'];\n\n    console.log(\"Sending message\", message, \"to receiver\", receiver);\n\n    callback(null, 'Successfully executed');\n}",
+        "triggers": [
+          {
+            "resourceName": "apigusEast1SMSGatewaysendSMSpost",
+            "config": {}
+          }
+        ],
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -39,7 +44,38 @@
       "737af78f-25da-49ed-b702-e0f9bd605fc1"
     ],
     "currentFileId": "737af78f-25da-49ed-b702-e0f9bd605fc1",
-    "resources": {},
+    "resources": {
+      "apigusEast1SMSGatewaysendSMSpost": {
+        "name": "apigusEast1SMSGatewaysendSMSpost",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "SMSGateway",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "sendSMS",
+          "resourcePath": "/sendSMS",
+          "restMethod": "POST",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "prod"
+        },
+        "globallyEditable": false
+      },
+      "snsDirectSMSResource": {
+        "name": "snsDirectSMSResource",
+        "type": "SNS",
+        "config": {
+          "snsType": 1,
+          "numbers": [
+            "@{receiver}"
+          ]
+        },
+        "globallyEditable": false
+      }
+    },
     "customTemplate": {
       "dialect": null,
       "definitions": {}
@@ -55,7 +91,14 @@
       }
     ],
     "packageJSON": {
-      "dependencies": {}
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "version": "2.176.0",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
     }
   },
   "PROJECT_META": {
@@ -65,7 +108,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1556031787759
+    "lastSave": 1556032232633
   },
   "VCS_STATE": {
     "provider": "GitHub",

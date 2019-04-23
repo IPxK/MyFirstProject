@@ -1,0 +1,77 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "b8a1d0d9-b390-43d8-8bdb-d3ea76337704": {
+        "id": "b8a1d0d9-b390-43d8-8bdb-d3ea76337704",
+        "parent": null,
+        "name": "MyFirstProject",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "737af78f-25da-49ed-b702-e0f9bd605fc1"
+        ],
+        "isRemovable": false,
+        "filePath": "MyFirstProject"
+      },
+      "737af78f-25da-49ed-b702-e0f9bd605fc1": {
+        "id": "737af78f-25da-49ed-b702-e0f9bd605fc1",
+        "parent": "b8a1d0d9-b390-43d8-8bdb-d3ea76337704",
+        "name": "lambda.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "MyFirstProject/lambda.js",
+        "code": "exports.handler = function(event, context, callback) {\n    \n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "triggers": [],
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        }
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "b8a1d0d9-b390-43d8-8bdb-d3ea76337704",
+    "openFiles": [
+      "737af78f-25da-49ed-b702-e0f9bd605fc1"
+    ],
+    "currentFileId": "737af78f-25da-49ed-b702-e0f9bd605fc1",
+    "resources": {},
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "MyFirstProject",
+    "projectDescription": "My First Project",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1556031787759
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "MyFirstProject",
+      "url": "https://github.com/IPxK/MyFirstProject"
+    }
+  }
+}

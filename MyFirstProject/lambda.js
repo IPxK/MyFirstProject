@@ -3,11 +3,14 @@ let AWS = require('aws-sdk');
 const sns = new AWS.SNS();
 exports.handler = function (event, context, callback) {
 
-    callback(null, { "message": "Successfully executed" });
-}
+    let receiver = event['receiver'];
+	let sender = event['sender'];
+	let message = event['message'];
 
+	let isPromotional = true;
 
-exports.handler = function (event, context, callback) {
+	console.log("Sending message", message, "to receiver", receiver);
+
     sns.publish({
         Message: message,
         MessageAttributes: {
@@ -18,22 +21,17 @@ exports.handler = function (event, context, callback) {
             'AWS.SNS.SMS.SenderID': {
                 DataType: 'String',
                 StringValue: '@sender'
-            },
+            }
         },
-        PhoneNumber: receiver
+        PhoneNumber: reveiver
     }).promise()
         .then(data => {
-            // your code goes here
+            console.log("Sent message to", receiver);
+			callback(null, data);
         })
         .catch(err => {
-            // error handling goes here
+            console.log("Sending failed", err);
+			callback(err);
         });
 
-    let receiver = event['receiver'];
-    let sender = event['sender'];
-    let message = event['message'];
-
-    console.log("Sending message", message, "to receiver", receiver);
-
-    callback(null, 'Successfully executed');
 }
